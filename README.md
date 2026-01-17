@@ -70,7 +70,7 @@ cd MirsTanq_A/mirsws
 docker compose build
 ```
 
-初回ビルドには数分かかります。以下の処理が自動的に行われます：
+初回ビルドには数分かかります。以下の処理が自動的に行われます
 - ROS 2 Humble Desktop のインストール
 - Navigation2、SLAM Toolbox などの依存パッケージのインストール
 - sllidar_ros2、micro-ROS Agent のクローンとビルド
@@ -86,15 +86,15 @@ docker compose exec mirs bash
 
 ### 5. ROS 2 ノードの実行
 
-lidarとesp32をpcにusb接続すること
-### USB デバイス
+実行前にlidarとesp32をpcにusb接続すること
 
-`docker-compose.yml` で以下のデバイスがマウントされています：
+`docker-compose.yml` で以下のデバイスがマウントされています
 - `/dev/ttyUSB0`: LiDAR
 - `/dev/ttyUSB1`: ESP32
+
 先にlidarを接続することでttyUSB0がLiDARになるはずです。launchのときにusbポートを指定する必要はありません。
 
-コンテナ内で：
+コンテナ内で
 
 ```bash
 # 基本的なシステム起動

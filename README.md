@@ -5,6 +5,8 @@ mirs_mg5の標準的機能を備えたROS 2パッケージ（Docker対応版）
 ## 主な改変点
 
 このリポジトリは以下のリポジトリから派生し、**Docker環境で簡単に実行できるように改変**されています：
+- [mirs2502/mirs_mg5](https://github.com/mirs2502/mirs_mg5)
+- [mirs2502/mirs_description](https://github.com/mirs2502/mirs_description)
 - [mirs240x/mirs_mg5](https://github.com/mirs240x/mirs_mg5)
 - [mirs240x/mirs_msgs](https://github.com/mirs240x/mirs_msgs)
 - [mirs240x/mirs_slam_navigation](https://github.com/mirs240x/mirs_slam_navigation)
@@ -30,11 +32,7 @@ mirs_mg5の標準的機能を備えたROS 2パッケージ（Docker対応版）
 - Docker Compose
 - X11サーバー (windowsの場合WSLg)
 - USBIPD-WIN https://github.com/dorssel/usbipd-win (windowsのみusb接続のために必要)
-
-- ESP32のセットアップは別途行う必要があります
-  - Arduino IDE
-  - [mirs240x/mirs24_esp32(esp32用ソースコード)](https://github.com/mirs240x/mirs24_esp32.git)
-  - [mirs240x/micro_ros_arduinomirs240x(micro-rosライブラリ(zipでインポート))]https://github.com/mirs240x/micro_ros_arduino_mirs240x
+- Arduino IDE (ESP32にmicro-ros-clientを導入するため)
 
 ## 含まれるパッケージ
 
@@ -43,32 +41,30 @@ mirs_mg5の標準的機能を備えたROS 2パッケージ（Docker対応版）
 - ESP32との通信（micro-ROS）
 - オドメトリ計算とTF配信
 - ロボットモデル（URDF）
-- ナビゲーション設定
-- SLAM設定
+- ナビゲーション
+- SLAM
 
 ### mirs_msgs
 カスタムメッセージ定義パッケージ
 
-## ハードウェア接続
-
-### USB デバイス
-
-`docker-compose.yml` で以下のデバイスがマウントされています：
-- `/dev/ttyUSB0`: LiDAR
-- `/dev/ttyUSB1`: ESP32
-
-Arduinoを使用する場合は、`docker-compose.yml` の上記の表記を`/dev/ttyACM0`に変更してください。
-
 ## つかいかた
 
-### 1. リポジトリのクローン
+### 1. ESP32のセットアップ
+
+  Arduino IDEに以下のソースコードとライブラリを導入する
+  - [mirs2502/mirs2502_esp32(esp32用ソースコード)](https://github.com/mirs2502/mirs2502_esp32.git)
+    - 2502の元になったコード[mirs240x/mirs24_esp32(esp32用ソースコード)](https://github.com/mirs240x/mirs24_esp32.git)
+  - [mirs240x/micro_ros_arduino_mirs240x](https://github.com/mirs240x/micro_ros_arduino_mirs240x)
+    - micro-rosライブラリ。zipでインポート
+
+### 2. リポジトリのクローン
 
 ```bash
 git clone https://github.com/6kam/MirsTanq_A.git
 cd MirsTanq_A/mirsws
 ```
 
-### 2. Docker イメージのビルド
+### 3. Docker イメージのビルド
 
 ```bash
 docker compose build
@@ -80,7 +76,7 @@ docker compose build
 - sllidar_ros2、micro-ROS Agent のクローンとビルド
 - ワークスペースのビルド
 
-### 3. コンテナの起動
+### 4. コンテナの起動
 
 ```bash
 xhost +local:docker  # X11転送を許可（初回のみ）
@@ -88,7 +84,15 @@ docker compose up -d
 docker compose exec mirs bash
 ```
 
-### 4. ROS 2 ノードの実行
+### 5. ROS 2 ノードの実行
+
+lidarとesp32をpcにusb接続すること
+### USB デバイス
+
+`docker-compose.yml` で以下のデバイスがマウントされています：
+- `/dev/ttyUSB0`: LiDAR
+- `/dev/ttyUSB1`: ESP32
+先にlidarを接続することでttyUSB0がLiDARになるはずです。launchのときにusbポートを指定する必要はありません。
 
 コンテナ内で：
 
@@ -143,6 +147,8 @@ docker compose down
 ## 謝辞
 
 このプロジェクトは以下のリポジトリから派生しています：
+- [mirs2502/mirs_mg5](https://github.com/mirs2502/mirs_mg5)
+- [mirs2502/mirs_description](https://github.com/mirs2502/mirs_description)
 - [mirs240x/mirs_mg5](https://github.com/mirs240x/mirs_mg5)
 - [mirs240x/mirs_msgs](https://github.com/mirs240x/mirs_msgs)
 - [mirs240x/mirs_slam_navigation](https://github.com/mirs240x/mirs_slam_navigation)

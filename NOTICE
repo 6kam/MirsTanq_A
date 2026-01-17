@@ -1,0 +1,20 @@
+MIRS Project
+Copyright (c) 2026 mirs2502
+
+このプロジェクトには、以下のソースから派生したコードが含まれています：
+
+================================================================================
+
+mirs_mg5 Repository
+Copyright (c) 2024 mirs240x
+Licensed under MIT License
+Source: https://github.com/mirs240x/mirs_mg5
+        https://github.com/mirs240x/mirs_msgs
+        https://github.com/mirs240x/mirs_slam_navigation
+
+このリポジトリのコードは、mirs2502によって改変され、統合されています。
+
+================================================================================
+
+すべてのコンポーネントはMITライセンスの下で提供されています。
+詳細については、ルートディレクトリのLICENSEファイルを参照してください。

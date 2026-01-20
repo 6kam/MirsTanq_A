@@ -17,14 +17,14 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ${XAUTHORITY}:${XAUTHORITY}:ro
 
-    devices:
-      - /dev/ttyUSB0:/dev/ttyUSB0 #LiDAR
-      - /dev/ttyUSB1:/dev/ttyUSB1 #ESP32
-      - /dev/input/js0:/dev/input/js0 #joystick
+#    devices:
+#      - /dev/ttyUSB0:/dev/ttyUSB0 #LiDAR
+#      - /dev/ttyUSB1:/dev/ttyUSB1 #ESP32
+#      - /dev/input/js0:/dev/input/js0 #joystick
 
-    group_add:
-      - dialout   # ttyUSB*
-      - input     # /dev/input/js0
+#    group_add:
+#      - dialout   # ttyUSB*
+#      - input     # /dev/input/js0
     
     stdin_open: true
     tty: true # terminalの割当

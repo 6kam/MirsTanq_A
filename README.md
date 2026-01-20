@@ -11,9 +11,14 @@ mirs_mg5の標準的機能を備えたROS 2パッケージ（Docker対応版）
 2. **[mirs240x](https://github.com/mirs240x)** によるオリジナル版
    - プロジェクトの基盤となるROS 2パッケージ群
 
+### 2026/01 リファクタリング
+- **Dockerfileの整理**: `apt-get` による手動インストールを最小限にし、`rosdep` による自動依存関係解決に移行しました。
+- **ビルド効率の向上**: コンテナ内にビルド用エイリアスを追加し、開発効率を改善しました。
+- **デバイス権限の適正化**: `group_add` によるアクセス権限設定を導入しました。
+
 ### Dockerを使用するメリット
 - **環境構築が簡単**: ROS 2 Humbleと、lidarやmicro-ros-agentといったros2パッケージのインストール不要
-- **依存関係が自動解決**: rosdepによる自動インストール
+- **依存関係が自動解決**: `mirs/package.xml` に基づき `rosdep` が自動で必要なパッケージをインストール
 - **再現性が高い**: どのマシンでも同じ環境で実行可能
 - **クリーンな環境**: ホストシステムを汚さない
 
@@ -30,8 +35,8 @@ mirs_mg5の標準的機能を備えたROS 2パッケージ（Docker対応版）
 
 - Docker (Docker Desktop for Windowsは使用不可)
 - Docker Compose
-- X11サーバー (windowsの場合WSLg)
-- USBIPD-WIN https://github.com/dorssel/usbipd-win (windowsのみusb接続のために必要)
+- X11サーバー (Windowsの場合WSLg)
+- USBIPD-WIN [GitHub](https://github.com/dorssel/usbipd-win) (WindowsのみUSB接続のために必要)
 - Arduino IDE (ESP32にmicro-ros-clientを導入するため)
 
 ## 含まれるパッケージ
@@ -41,8 +46,7 @@ mirs_mg5の標準的機能を備えたROS 2パッケージ（Docker対応版）
 - ESP32との通信（micro-ROS）
 - オドメトリ計算とTF配信
 - ロボットモデル（URDF）
-- navigation2
-- SLAM
+- navigation2 / SLAM
 
 ### mirs_msgs
 カスタムメッセージ定義パッケージ
@@ -51,8 +55,8 @@ mirs_mg5の標準的機能を備えたROS 2パッケージ（Docker対応版）
 
 ### 1. ESP32のセットアップ
 
-  Arduino IDEに以下のソースコードとライブラリを導入する
-  - [mirs2502/mirs2502_esp32(esp32用ソースコード)](https://github.com/mirs2502/mirs2502_esp32.git)
+Arduino IDEに以下のソースコードとライブラリを導入する
+- [mirs2502/mirs2502_esp32(esp32用ソースコード)](https://github.com/mirs2502/mirs2502_esp32.git)
     - 2502の元になったコード[mirs240x/mirs24_esp32(esp32用ソースコード)](https://github.com/mirs240x/mirs24_esp32.git)
   - [mirs240x/micro_ros_arduino_mirs240x](https://github.com/mirs240x/micro_ros_arduino_mirs240x)
     - micro-rosライブラリ。zipでインポート
@@ -72,6 +76,7 @@ git clone https://github.com/Slamtec/sllidar_ros2.git
 ### 3. Docker イメージのビルド
 
 ```bash
+cd ..
 docker compose build
 ```
 
@@ -83,18 +88,27 @@ docker compose up -d
 docker compose exec mirs bash
 ```
 
-### 5. ROS 2 ノードの実行
+### 5. ROS 2 ノードのビルドと実行
 
-実行前にlidarとesp32をpcにusb接続すること
+#### ビルド
+コンテナ内で便利なエイリアスが使用可能です：
+- `cb`: `colcon build --symlink-install` (全ビルド)
+- `cbs`: `colcon build --symlink-install --packages-select` (パッケージ指定)
+- `cbt`: `colcon build --symlink-install --packages-up-to` (依存込み)
 
-`docker-compose.yml` で以下のデバイスがマウントされています
+```bash
+cb
+source install/setup.bash
+```
+
+#### 実行
+実行前にLiDARとESP32をPCにUSB接続してください。
+
+`docker-compose.yml` で以下のデバイスがマウントされています（接続時）：
 - `/dev/ttyUSB0`: LiDAR
 - `/dev/ttyUSB1`: ESP32
 
 先にlidarを接続することでttyUSB0がLiDARになるはずです。launchのときにusbポートを指定する必要はありません。
-
-コンテナ内で
-
 ```bash
 # 基本的なシステム起動
 ros2 launch mirs mirs.launch.py

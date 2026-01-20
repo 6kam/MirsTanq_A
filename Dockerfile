@@ -11,8 +11,7 @@ RUN apt-get update && \
     usbutils \
     x11-apps \
     libcanberra-gtk-module \
-    libcanberra-gtk3-module \
-    && rm -rf /var/lib/apt/lists/*
+    libcanberra-gtk3-module
 
 WORKDIR /root/projects/mirsws
 

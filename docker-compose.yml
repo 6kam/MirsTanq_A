@@ -7,13 +7,13 @@ services:
     privileged: true # USBやGPUの使用許可
     environment:
       - DISPLAY=${DISPLAY}
-      - XAUTHORITY=/tmp/.Xauthority
+      - XAUTHORITY=${XAUTHORITY}
       - XDG_RUNTIME_DIR=/tmp/runtime-root
       - QT_X11_NO_MITSHM=1
       - ROS_DOMAIN_ID=90
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - ~/.Xauthority:/tmp/.Xauthority:ro
+      - ${XAUTHORITY}:${XAUTHORITY}:ro
       - /dev/bus/usb:/dev/bus/usb
       - /dev/input:/dev/input
     devices:

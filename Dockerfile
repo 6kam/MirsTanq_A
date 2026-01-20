@@ -25,18 +25,7 @@ RUN apt-get update && \
 
 WORKDIR /root/projects/mirsws
 
-RUN apt-get update && \
-    rosdep update && \
-    rosdep install --from-paths src --ignore-src -r -y
-
-RUN . /opt/ros/humble/setup.bash && \
-    colcon build --symlink-install
-
 RUN echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc && \
-    echo "source /root/projects/mirsws/install/setup.bash" >> /root/.bashrc && \
     echo 'export PS1="\[\e[32m\]\u@mirs-sim\[\e[m\]:\[\e[34m\]\w\[\e[m\]\\$ "' >> /root/.bashrc
 
-COPY entrypoint.sh /root/projects/mirsws/entrypoint.sh
-RUN chmod +x /root/projects/mirsws/entrypoint.sh
-ENTRYPOINT ["/root/projects/mirsws/entrypoint.sh"]
 CMD ["bash"]

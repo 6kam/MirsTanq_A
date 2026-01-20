@@ -41,7 +41,7 @@ mirs_mg5の標準的機能を備えたROS 2パッケージ（Docker対応版）
 - ESP32との通信（micro-ROS）
 - オドメトリ計算とTF配信
 - ロボットモデル（URDF）
-- ナビゲーション
+- navigation2
 - SLAM
 
 ### mirs_msgs
@@ -60,8 +60,9 @@ mirs_mg5の標準的機能を備えたROS 2パッケージ（Docker対応版）
 ### 2. リポジトリのクローン
 
 ```bash
+# homeディレクトリに移動してから以下のコマンドを実行すると移動がやりやすい
 git clone https://github.com/6kam/MirsTanq_A.git
-cd MirsTanq_A/mirsws
+cd MirsTanq_A/mirsws/src
 git clone -b humble https://github.com/micro-ROS/micro-ROS-Agent.git
 git clone https://github.com/Slamtec/sllidar_ros2.git
 
@@ -77,7 +78,6 @@ docker compose build
 初回ビルドには数分かかります。以下の処理が自動的に行われます
 - ROS 2 Humble Desktop のインストール
 - Navigation2、SLAM Toolbox などの依存パッケージのインストール
-- sllidar_ros2、micro-ROS Agent のクローンとビルド
 - ワークスペースのビルド
 
 ### 4. コンテナの起動
@@ -118,8 +118,7 @@ ros2 launch mirs navigation.launch.py
 
 ### ソースコードの編集
 
-ホストマシンの `src/` はマウントされていないので、ホストで編集したら再度ビルドする必要があります。
-コンテナ内での編集はホストに反映されません。
+ホストマシンの `src/` はコンテナ内でマウントされているので、コンテナ内で編集してもホストに反映されます。
 
 ### デバッグ
 

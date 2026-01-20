@@ -12,6 +12,7 @@ services:
       - QT_X11_NO_MITSHM=1
       - ROS_DOMAIN_ID=90
     volumes:
+      - ./src:/root/projects/mirsws/src
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ${XAUTHORITY}:${XAUTHORITY}:ro
       - /dev/bus/usb:/dev/bus/usb

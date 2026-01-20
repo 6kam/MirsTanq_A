@@ -13,6 +13,8 @@ RUN apt-get update && \
     ros-humble-dwb-core \
     ros-humble-dwb-msgs \
     ros-humble-slam-toolbox \
+    ros-humble-teleop-twist-joy \
+    ros-humble-joy \
     build-essential \
     cmake \
     git \

@@ -75,11 +75,6 @@ git clone https://github.com/Slamtec/sllidar_ros2.git
 docker compose build
 ```
 
-初回ビルドには数分かかります。以下の処理が自動的に行われます
-- ROS 2 Humble Desktop のインストール
-- Navigation2、SLAM Toolbox などの依存パッケージのインストール
-- ワークスペースのビルド
-
 ### 4. コンテナの起動
 
 ```bash

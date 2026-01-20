@@ -63,7 +63,9 @@ mirs_mg5の標準的機能を備えたROS 2パッケージ（Docker対応版）
 git clone https://github.com/6kam/MirsTanq_A.git
 cd MirsTanq_A/mirsws
 git clone -b humble https://github.com/micro-ROS/micro-ROS-Agent.git
-git clone https://github.com/Slamtec/sllidar_ros2.git src/sllidar_ros2
+git clone https://github.com/Slamtec/sllidar_ros2.git
+
+# ここで、srcディレクトリのしたにmicro-ROSやslllidar_ros2が配置されているか確認する
 ```
 
 ### 3. Docker イメージのビルド

@@ -97,11 +97,11 @@ docker compose exec mirs bash
 - `cb`: `colcon build --symlink-install` (全ビルド)
 - `cbs`: `colcon build --symlink-install --packages-select` (パッケージ指定)
 - `cbt`: `colcon build --symlink-install --packages-up-to` (依存込み)
+- `si`: `source install/setup.bash`
 
 コンテナ内では次のコマンドは起動時に宣言されています
 
 - `source /opt/ros/humble/setup.bash`
-- `source install/setup.bash`
 
 コンテナ内で以下のコマンドを実行してください
 
@@ -109,6 +109,7 @@ docker compose exec mirs bash
 ru
 ri
 cb
+si
 ```
 
 #### 実行

@@ -69,6 +69,7 @@ git clone https://github.com/6kam/MirsTanq_A.git
 cd MirsTanq_A/mirsws/src
 git clone -b humble https://github.com/micro-ROS/micro-ROS-Agent.git
 git clone https://github.com/Slamtec/sllidar_ros2.git
+git clone -b humble https://github.com/micro-ROS/micro_ros_msgs.git
 
 # ここで、srcディレクトリのしたにmicro-ROSやslllidar_ros2が配置されているか確認する
 ```
@@ -97,6 +98,8 @@ docker compose exec mirs bash
 - `cbt`: `colcon build --symlink-install --packages-up-to` (依存込み)
 
 ```bash
+rosdep update
+rosdep install --from-path src --ignore-src -r -y
 cb
 source install/setup.bash
 ```

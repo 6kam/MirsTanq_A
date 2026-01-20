@@ -64,7 +64,6 @@ Arduino IDEに以下のソースコードとライブラリを導入する
 ### 2. リポジトリのクローン
 
 ```bash
-# homeディレクトリに移動してから以下のコマンドを実行すると移動がやりやすい
 git clone https://github.com/6kam/MirsTanq_A.git
 cd MirsTanq_A/mirsws/src
 git clone -b humble https://github.com/micro-ROS/micro-ROS-Agent.git
@@ -98,11 +97,13 @@ docker compose exec mirs bash
 - `cb`: `colcon build --symlink-install` (全ビルド)
 - `cbs`: `colcon build --symlink-install --packages-select` (パッケージ指定)
 - `cbt`: `colcon build --symlink-install --packages-up-to` (依存込み)
+
 コンテナ内では次のコマンドは起動時に宣言されています
-```
-source /opt/ros/humble/setup.bash
-source install/setup.bash
-```
+
+- `source /opt/ros/humble/setup.bash`
+- `source install/setup.bash`
+
+コンテナ内で以下のコマンドを実行してください
 
 ```bash
 ru

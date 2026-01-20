@@ -25,10 +25,6 @@ RUN apt-get update && \
 
 WORKDIR /root/projects/mirsws
 
-COPY ./src ./src
-RUN git clone https://github.com/Slamtec/sllidar_ros2.git src/sllidar_ros2
-RUN git clone -b humble https://github.com/micro-ROS/micro-ROS-Agent.git src/micro_ros_agent
-
 RUN apt-get update && \
     rosdep update && \
     rosdep install --from-paths src --ignore-src -r -y

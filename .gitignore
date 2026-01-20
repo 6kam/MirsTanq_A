@@ -4,6 +4,7 @@ install/
 log/
 node_modules/
 venv/
+# External ROS packages cloned from locally
 src/sllidar_ros2
 src/micro_ros_agent
 

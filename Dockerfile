@@ -11,7 +11,7 @@ RUN apt-get update && \
     usbutils \
     x11-apps \
     libcanberra-gtk-module \
-    libcanberra-gtk3-module
+    libcanberra-gtk3-module 
 
 WORKDIR /root/projects/mirsws
 ENV ROS_DISTRO=humble

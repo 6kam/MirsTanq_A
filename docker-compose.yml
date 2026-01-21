@@ -2,7 +2,7 @@ services:
   mirs:
     build: . # Dockerfileの位置を指定する
     container_name: ros2_humble_for_mirs250x
-    privileged: true  #すべての権限付与（本番環境では使わない）
+    privileged: true #すべての権限付与（本番環境では使わない）
     network_mode: host
     ipc: host
     pid: host
@@ -19,15 +19,11 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ${XAUTHORITY}:${XAUTHORITY}:ro
 
-#    devices:
-#      - /dev/ttyUSB0:/dev/ttyUSB0 #LiDAR
-#      - /dev/ttyUSB1:/dev/ttyUSB1 #ESP32
-#      - /dev/input/js0:/dev/input/js0 #joystick
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0 #LiDAR
+      - /dev/ttyUSB1:/dev/ttyUSB1 #ESP32
+      - /dev/input/js0:/dev/input/js0 #joystick
 
-#    group_add:
-#      - dialout   # ttyUSB*
-#      - input     # /dev/input/js0
-    
     stdin_open: true
     tty: true # terminalの割当
     command: bash
